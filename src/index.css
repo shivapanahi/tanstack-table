@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+td:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+
+td:last-child {
+  border-radius: 0 10px 10px 0;
+}
