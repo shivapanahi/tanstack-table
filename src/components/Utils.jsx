@@ -1,12 +1,9 @@
-import BasicTable from './components/BasicTable';
-import Sidebar from './components/Sidebar';
-import Navbar from './components/Navbar';
-import mData from "./MOCK_DATA.json"
-import { useMemo } from 'react';
+import React from 'react'
 
-function App() {
-      /**@type import('@tanstack/react-table').ColumnDef<any> */
-      const columns = [
+export default function Utils() {
+        /**@type import('@tanstack/react-table').ColumnDef<any> */
+    const columns = [
+    
         {
             header: 'ردیف',
             accessorFn: row => `${row.id}`,
@@ -64,21 +61,9 @@ function App() {
             }
         },
     ]
-    const data = useMemo(() => mData, [])
   return (
-    <div className="flex"> <div className='basis-2/12 '>
-        <Sidebar />
-      </div>
-      <div className="basis-10/12 border">
-        <Navbar />
-        <div className="grid grid-cols-6  ">
-          <div className="col-start-2 col-span-4">
-            <BasicTable  columns={columns} data={data}/>
-            </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+    <div>
 
-export default App;
+    </div>
+  )
+}

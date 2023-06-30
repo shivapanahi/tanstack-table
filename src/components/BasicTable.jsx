@@ -1,5 +1,4 @@
-import React, { useMemo, useState } from 'react'
-import mData from "../MOCK_DATA.json"
+import React, {  useState } from 'react'
 import {
     flexRender,
     getCoreRowModel,
@@ -10,64 +9,7 @@ import {
 } from '@tanstack/react-table'
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 
-export default function BasicTable() {
-    const data = useMemo(() => mData, [])
-    /**@type import('@tanstack/react-table').ColumnDef<any> */
-    const columns = [
-        {
-            Header: 'ID',
-            accessorKey: 'id',
-        },
-        {
-            Header: "first name",
-            accessorKey: 'first_name',
-        },
-        {
-            Header: "last name",
-            accessorKey: 'last_name',
-        },
-        {
-            Header: "company",
-            accessorKey: 'company',
-        },
-        {
-            Header: "Status",
-            accessorKey: 'status',
-            cell: ({ row }) => {
-                return (
-                    row.original.status ?
-                        <div className='flex flex-row'>
-                            <div className="items-center justify-center w-4 h-4  font-bold  bg-green-500 border-2  border-gray-300 rounded-full"></div>
-                            <span className=" text-green-800 text-xs font-medium mr-2 px-1   rounde">active</span>
-                        </div>
-
-                        :
-                        <div className='flex flex-row'>
-                            <div className=" inline-flex items-center justify-center w-4 h-4    bg-red-500 border-2  border-gray-300 rounded-full   "></div>
-                            <span className=" text-red-800 text-xs font-medium mr-2 px-1  rounded">deactive</span>
-                        </div>
-                )
-            }
-        },
-        {
-            Header: "access",
-            accessorKey: 'access',
-            cell: ({ row }) => {
-                return (
-                    <div className='flex flex-row'>
-                        <span className="bg-blue-400
-                         text-zinc-50
-                         text-sm font-medium mr-2
-                          py-1 rounded-full
-                         
-                         w-24
-                         text-center
-                       border-blue-400">{row.original.access}</span>
-                    </div>
-                )
-            }
-        },
-    ]
+export default function BasicTable({ data, columns }) {
     const [sorting, setSorting] = useState([])
     const [filtering, setFiltering] = useState('')
     const table = useReactTable({
@@ -90,17 +32,17 @@ export default function BasicTable() {
     const { pageIndex, pageSize } = table.getState().pagination
     return (
         <div className='felx items-center justify-between py-10'>
-            <div className='flex flex-row-reverse'>
+            <div className='flex flex-row'>
 
                 <input
                     onChange={e => setFiltering(e.target.value)}
-                    className=" flex-1shadow appearance-none border rounded-2xl  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-right "
+                    className=" shadow appearance-none border rounded-2xl  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-right "
                     type="text"
                     placeholder="جستجو"
                 />
             </div>
 
-            <table className="border-separate border-spacing-y-3 min-w-full">
+            <table dir='rtl' className="border-separate border-spacing-y-3 min-w-full">
 
                 <thead>
                     {table.getHeaderGroups().map(headerGroup => (
@@ -143,12 +85,23 @@ export default function BasicTable() {
             </table>
 
             <div className='flex flex-row gap-1 justify-between items-center my-10'>
+                <div className='flex flex-row gap-1 '> <p className=' p-1'>  نمایش   {(pageIndex + 1) * pageSize} ردیف
+                    در مجموع  {table.getTotalSize()}  ردیف
+                </p>
+                    <select
+                        onChange={(e) => table.setPageSize((e.target.value))}
+                        id="countries" className="block  p-2 mb-2 text-sm text-gray-900 border border-gray-300 rounded-xl bg-gray-50 focus:ring-blue-500 focus:border-gray-900">
+                        <option defaultValue="10">10</option>
+                        <option defaultValue="20">20</option>
+                        <option defaultValue="30">30</option>
+                    </select>
+                </div>
                 <div>
                     <button
                         type="button"
                         className="text-gray-900 w-10 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-2xl text-sm px-3 pt-3 pb-3.5  mr-2 mb-2"
                         disabled={!table.getCanPreviousPage()} onClick={() => table.previousPage()}>
-                        <BsArrowLeft className='text-1xl' />
+                        <BsArrowRight className='text-1xl' />
                     </button>
                     {pages.map((page) => (
                         <button key={page} onClick={() => table.setPageIndex(page - 1)}
@@ -159,20 +112,9 @@ export default function BasicTable() {
                     <button
                         className="text-gray-900 w-10 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-2xl text-sm px-3 pt-3 pb-3.5  mr-2 mb-2"
                         disabled={!table.getCanNextPage()} onClick={() => table.nextPage()}>
-                        <BsArrowRight className='text-1xl' />
+                        <BsArrowLeft className='text-1xl' />
                     </button>
-                </div>
-                <div className='flex flex-row gap-1 '>
-                    <select
-                        onChange={(e) => table.setPageSize((e.target.value))}
-                        id="countries" className="block  p-2 mb-2 text-sm text-gray-900 border border-gray-300 rounded-xl bg-gray-50 focus:ring-blue-500 focus:border-gray-900">
-                        <option defaultValue="10">10</option>
-                        <option defaultValue="20">20</option>
-                        <option defaultValue="30">30</option>
-                    </select>
-                    <p className=' p-1'>  نمایش   {(pageIndex + 1) * pageSize} ردیف
-                        در مجموع  {table.getTotalSize()}  ردیف
-                    </p>
+
                 </div>
 
             </div>
