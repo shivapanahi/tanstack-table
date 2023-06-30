@@ -99,18 +99,18 @@ export default function BasicTable({ data, columns }) {
                 <div>
                     <button
                         type="button"
-                        className="text-gray-900 w-10 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-2xl text-sm px-3 pt-3 pb-3.5  mr-2 mb-2"
+                        className="text-gray-900 w-10 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 disabled:opacity-50 font-medium rounded-2xl text-sm px-3 pt-3 pb-3.5  mr-2 mb-2"
                         disabled={!table.getCanPreviousPage()} onClick={() => table.previousPage()}>
                         <BsArrowRight className='text-1xl' />
                     </button>
                     {pages.map((page) => (
                         <button key={page} onClick={() => table.setPageIndex(page - 1)}
-                            className={(Math.abs(page - pageIndex) > 2 ? "hidden" : "text-gray-900 w-10 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-2xl text-sm px-1 py-2.5 mr-2 mb-2")}
+                            className={(Math.abs(page - pageIndex) > 2 ? "hidden" : "text-gray-900 w-10 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:bg-blue-800 focus:text-slate-50 active:bg-blue-800 font-medium rounded-2xl text-sm px-1 py-2.5 mr-2 mb-2")}
                         >
                             {page}
                         </button>))}
                     <button
-                        className="text-gray-900 w-10 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-2xl text-sm px-3 pt-3 pb-3.5  mr-2 mb-2"
+                        className="text-gray-900 w-10 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-2xl text-sm px-3 pt-3 pb-3.5  mr-2 mb-2 disabled:opacity-50  "
                         disabled={!table.getCanNextPage()} onClick={() => table.nextPage()}>
                         <BsArrowLeft className='text-1xl' />
                     </button>
